@@ -12,20 +12,20 @@ import com.cloudhopper.smpp.type.UnrecoverablePduException
 import org.slf4j.LoggerFactory
 import java.nio.channels.ClosedChannelException
 
+
 /**
  * @author DK
  * @since 2018-07-24
  */
 
 
-abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmppSessionHandler(), ISmppChHandler {
+abstract class SmppChHandler(protected var smppGateway: ISmppChGateway) : DefaultSmppSessionHandler(), ISmppChHandler {
 
     private val logger = LoggerFactory.getLogger("SmppChHandler")
 
-    protected val defaultEncoding: Charset
-        get() = CharsetUtil.CHARSET_ISO_8859_1
+    protected val defaultEncoding: Charset = CharsetUtil.CHARSET_ISO_8859_1
 
-    protected fun fireDeliverSmReceived(deliverSm: DeliverSm) {
+    protected open fun fireDeliverSmReceived(deliverSm: DeliverSm) {
 
         val recordSm = StringBuilder()
         deliverSm.appendBodyToString(recordSm)
@@ -39,7 +39,7 @@ abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmp
         }
     }
 
-    protected fun decodeShortMessage(deliverSm: DeliverSm): String {
+    protected open fun decodeShortMessage(deliverSm: DeliverSm): String {
 
         when (deliverSm.dataCoding) {
 
@@ -51,7 +51,7 @@ abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmp
         }
     }
 
-    protected fun catchDr(message: String) {
+    protected open fun catchDr(message: String) {
 
         val smppDr = SmppDr()
         smppDr.parse(message)
@@ -61,16 +61,16 @@ abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmp
         }
     }
 
-    private fun insertDr(smppDr: SmppDr) {
+    protected open fun insertDr(smppDr: SmppDr) {
 
     }
 
-    protected fun isDr(message: String): Boolean {
+    protected open fun isDr(message: String): Boolean {
 
         return !(message.startsWith("id:") || message.startsWith("sm:"))
     }
 
-    protected fun catchMo(deliverSm: DeliverSm, message: String) {
+    protected open fun catchMo(deliverSm: DeliverSm, message: String) {
 
         if (deliverSm.esmClass != SmppConstants.ESM_CLASS_UDHI_MASK) {
             insertMo(deliverSm, message)
@@ -79,7 +79,7 @@ abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmp
         }
     }
 
-    private fun insertMo(deliverSm: DeliverSm, message: String) {
+    protected open fun insertMo(deliverSm: DeliverSm, message: String) {
 
     }
 
@@ -99,25 +99,25 @@ abstract class SmppChHandler(protected var gateway: ISmppChGateway) : DefaultSmp
     override fun fireChannelUnexpectedlyClosed() {
 
         logger.warn("fireChannelUnexpectedlyClosed()")
-        gateway.asyncWaitAndBind()
+        smppGateway.asyncWaitAndBind()
     }
 
     override fun fireUnexpectedPduResponseReceived(pduResponse: PduResponse) {
 
         logger.warn("fireUnexpectedPduResponseReceived() pduResponse=${pduResponse.toString()}")
-        gateway.asyncWaitAndBind()
+        smppGateway.asyncWaitAndBind()
     }
 
     override fun fireUnrecoverablePduException(e: UnrecoverablePduException) {
 
         logger.warn("fireUnrecoverablePduException() pduResponse=${e.toString()}")
-        gateway.asyncWaitAndBind()
+        smppGateway.asyncWaitAndBind()
     }
 
     override fun fireRecoverablePduException(e: RecoverablePduException) {
 
         logger.warn("fireRecoverablePduException() pduResponse=${e.toString()}")
-        gateway.asyncWaitAndBind()
+        smppGateway.asyncWaitAndBind()
     }
 
     override fun fireUnknownThrowable(t: Throwable) {

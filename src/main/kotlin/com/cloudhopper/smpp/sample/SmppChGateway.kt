@@ -31,14 +31,9 @@ abstract class SmppChGateway : ISmppChGateway {
     private val logger = LoggerFactory.getLogger("SmppChGateway")
 
     protected val smppChDto = SmppChDto()
-
     protected val scheduledExecutor: ScheduledExecutorService
-
-    protected val defaultEncoding: Charset
-        get() = CharsetUtil.CHARSET_GSM
-
-    protected val isAsyncMode: Boolean
-        get() = false
+    protected open var defaultEncoding: Charset = CharsetUtil.CHARSET_GSM
+    protected val isAsyncMode: Boolean = false
 
     init {
 
@@ -53,7 +48,7 @@ abstract class SmppChGateway : ISmppChGateway {
         smppChDto.smppChJob = smppChJob
     }
 
-    protected fun setSessionHandler() {
+    protected open fun setSessionHandler() {
 
     }
 
@@ -70,7 +65,7 @@ abstract class SmppChGateway : ISmppChGateway {
         }
     }
 
-    protected fun initBind() {
+    protected open fun initBind() {
 
         try {
             smppChDto.session = null
@@ -100,7 +95,7 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun bind() {
+    protected open fun bind() {
 
         try {
 
@@ -126,7 +121,7 @@ abstract class SmppChGateway : ISmppChGateway {
         }, BIND_AYCN_TIMEOUT, TimeUnit.MILLISECONDS)
     }
 
-    fun rebind() {
+    protected open fun rebind() {
 
         try {
             close()
@@ -144,7 +139,7 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun close() {
+    protected open fun close() {
 
         smppChDto.session?.destroy()
         smppChDto.clientBootstrap?.destroy()
@@ -157,12 +152,12 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun unbind() {
+    protected open fun unbind() {
 
         smppChDto.session?.unbind(5000)
     }
 
-    protected fun failedDelay() {
+    protected open fun failedDelay() {
 
         try {
             Thread.sleep(60000)
@@ -171,11 +166,11 @@ abstract class SmppChGateway : ISmppChGateway {
         }
     }
 
-    protected fun changeBindUrl() {
+    protected open fun changeBindUrl() {
 
     }
 
-    protected fun setSessionConfig() {
+    protected open fun setSessionConfig() {
 
         val sessionConfig = SmppSessionConfiguration()
         sessionConfig.windowSize = smppChDto.windowSize
@@ -193,17 +188,17 @@ abstract class SmppChGateway : ISmppChGateway {
         smppChDto.sessionConfig = sessionConfig
     }
 
-    protected fun setConnectionTimeout(sessionConfig: SmppSessionConfiguration) {
+    protected open fun setConnectionTimeout(sessionConfig: SmppSessionConfiguration) {
 
         sessionConfig.connectTimeout = 40000
     }
 
-    protected fun setSsl() {
+    protected open fun setSsl() {
 
     }
 
     @Throws(Exception::class)
-    protected fun makeEncode(smsSendDto: SmsSendDto): ByteArray {
+    protected open fun makeEncode(smsSendDto: SmsSendDto): ByteArray {
 
         val content = smsSendDto.content
         when (smsSendDto.codingScheme?.toByte()) {
@@ -216,26 +211,26 @@ abstract class SmppChGateway : ISmppChGateway {
         }
     }
 
-    protected fun makeToolAddr(smsSendDto: SmsSendDto): Address {
+    protected open fun makeToolAddr(smsSendDto: SmsSendDto): Address {
 
         return Address(0x01.toByte(), 0x01.toByte(), smsSendDto.toolData)
     }
 
-    protected fun makeSourceAddr(smsSendDto: SmsSendDto): Address {
+    protected open fun makeSourceAddr(smsSendDto: SmsSendDto): Address {
 
         return Address(0x05.toByte(), 0x00.toByte(), smsSendDto.shortCode)
     }
 
-    protected fun addTlvOption(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
+    protected open fun addTlvOption(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
 
     }
 
-    protected fun setDcs(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
+    protected open fun setDcs(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
 
         submitSm.dataCoding = smsSendDto.codingScheme?.toByte() ?: return
     }
 
-    protected fun setEsmClass(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
+    protected open fun setEsmClass(smsSendDto: SmsSendDto, submitSm: SubmitSm) {
 
         if (smsSendDto.concatFlag) {
             submitSm.esmClass = SmppConstants.ESM_CLASS_UDHI_MASK
@@ -243,7 +238,7 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun makeSubmitSm(smsSendDto: SmsSendDto, textBytes: ByteArray): SubmitSm {
+    protected open fun makeSubmitSm(smsSendDto: SmsSendDto, textBytes: ByteArray): SubmitSm {
 
         val submitSm = SubmitSm()
         submitSm.sourceAddress = makeSourceAddr(smsSendDto)
@@ -257,7 +252,7 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun cutLimitLength(textBytes: ByteArray): ByteArray {
+    protected open fun cutLimitLength(textBytes: ByteArray): ByteArray {
 
         if (textBytes.size <= SMPP_LIMIT_BYTE) {
             return textBytes
@@ -313,11 +308,11 @@ abstract class SmppChGateway : ISmppChGateway {
     }
 
     @Throws(Exception::class)
-    protected fun addSubmitLog() {
+    protected open fun addSubmitLog() {
 
     }
 
-    fun postSubmitResp(submitResp: SubmitSmResp?, smsSendDto: SmsSendDto) {
+    open fun postSubmitResp(submitResp: SubmitSmResp?, smsSendDto: SmsSendDto) {
 
         if (submitResp?.commandStatus == SmppConstants.STATUS_OK) {
             smsSendDto.status = SmppStatus.SUCCESS.code
@@ -332,7 +327,7 @@ abstract class SmppChGateway : ISmppChGateway {
 
     }
 
-    protected fun getStatusByCommandStatus(commandStatus: Int): Int {
+    protected open fun getStatusByCommandStatus(commandStatus: Int): Int {
 
         val status: Int
         when (commandStatus) {
