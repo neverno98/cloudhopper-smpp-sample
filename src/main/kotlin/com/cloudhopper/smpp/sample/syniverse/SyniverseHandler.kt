@@ -2,8 +2,8 @@ package com.cloudhopper.smpp.sample.syniverse
 
 import com.cloudhopper.smpp.PduAsyncResponse
 import com.cloudhopper.smpp.SmppConstants
-import com.cloudhopper.smpp.sample.ISmppChGateway
-import com.cloudhopper.smpp.sample.SmppChHandler
+import com.cloudhopper.smpp.sample.ISmppGateway
+import com.cloudhopper.smpp.sample.SmppHandler
 import org.slf4j.LoggerFactory
 
 /**
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
  */
 
 
-class SyniverseHandler(gateway: ISmppChGateway) : SmppChHandler(gateway) {
+class SyniverseHandler(gateway: ISmppGateway) : SmppHandler(gateway) {
 
     private val logger = LoggerFactory.getLogger("SyniverseHandler")
 

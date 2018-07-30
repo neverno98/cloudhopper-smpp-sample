@@ -2,8 +2,8 @@ package com.cloudhopper.smpp.sample.openmarket
 
 import com.cloudhopper.smpp.SmppConstants
 import com.cloudhopper.smpp.pdu.DeliverSm
-import com.cloudhopper.smpp.sample.ISmppChGateway
-import com.cloudhopper.smpp.sample.SmppChHandler
+import com.cloudhopper.smpp.sample.ISmppGateway
+import com.cloudhopper.smpp.sample.SmppHandler
 import com.cloudhopper.smpp.tlv.TlvConvertException
 import org.slf4j.LoggerFactory
 
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
  */
 
 
-class OpenmarketHandler(smppGateway: ISmppChGateway) : SmppChHandler(smppGateway) {
+class OpenmarketHandler(smppGateway: ISmppGateway) : SmppHandler(smppGateway) {
 
     private val logger = LoggerFactory.getLogger("OpenmarketHandler")
 

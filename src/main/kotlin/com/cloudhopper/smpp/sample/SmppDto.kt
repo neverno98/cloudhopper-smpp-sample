@@ -13,15 +13,15 @@ import java.util.concurrent.ThreadPoolExecutor
  * @since 2018-07-24
  */
 
-data class SmppChDto(
+data class SmppDto(
 
         var monitorExecutor: ScheduledThreadPoolExecutor? = null,
         var sessionConfig: SmppSessionConfiguration? = null,
         var executor: ThreadPoolExecutor? = null,
         var clientBootstrap: DefaultSmppClient? = null,
-        var sessionHandler: SmppChHandler? = null,
+        var sessionHandler: SmppHandler? = null,
         var session: SmppSession? = null,
-        var smppChJob: SmppChJob? = null,
+        var smpphJob: SmpphJob? = null,
         var timer: Timer? = null,
         var smppBindType: SmppBindType = SmppBindType.TRANSMITTER,
         var smppUrl: String? = null,

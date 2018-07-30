@@ -3,7 +3,7 @@ package com.cloudhopper.smpp.sample.openmarket
 import com.cloudhopper.commons.charset.Charset
 import com.cloudhopper.commons.charset.CharsetUtil
 import com.cloudhopper.smpp.pdu.SubmitSm
-import com.cloudhopper.smpp.sample.SmppChGateway
+import com.cloudhopper.smpp.sample.SmppGateway
 import com.cloudhopper.smpp.sample.SmppRegisteredDeliveryCode
 import com.cloudhopper.smpp.sample.SmppStatus
 import com.cloudhopper.smpp.sample.SmsSendDto
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory
  */
 
 
-class OpenmarketGateway : SmppChGateway() {
+class OpenmarketGateway : SmppGateway() {
 
     private val logger = LoggerFactory.getLogger("OpenmarketGateway")
 

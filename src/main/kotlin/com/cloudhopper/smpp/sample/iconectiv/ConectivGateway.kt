@@ -1,7 +1,7 @@
 package com.cloudhopper.smpp.sample.iconectiv
 
 import com.cloudhopper.smpp.pdu.SubmitSm
-import com.cloudhopper.smpp.sample.SmppChGateway
+import com.cloudhopper.smpp.sample.SmppGateway
 import com.cloudhopper.smpp.sample.SmppRegisteredDeliveryCode
 import com.cloudhopper.smpp.sample.SmsSendDto
 import com.cloudhopper.smpp.tlv.Tlv
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
  * @since 2018-07-29
  */
 
-class ConectivGateway : SmppChGateway() {
+class ConectivGateway : SmppGateway() {
 
     private val conectivChDto = ConectivDto()
 

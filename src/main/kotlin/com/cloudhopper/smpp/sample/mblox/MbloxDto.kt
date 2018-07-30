@@ -1,7 +1,7 @@
 package com.cloudhopper.smpp.sample.mblox
 
 import com.cloudhopper.smpp.SmppBindType
-import com.cloudhopper.smpp.sample.SmppChDto
+import com.cloudhopper.smpp.sample.SmppDto
 
 /**
  * @author DK
@@ -16,27 +16,27 @@ class MbloxDto {
     private var transceiverCount = 0
     private var transmitterCount = 0
 
-    fun initMbloxModel(smppChDto: SmppChDto, smppBindType: SmppBindType, mbloxConnectionType: MbloxConnectionType) {
+    fun initMbloxModel(smppDto: SmppDto, smppBindType: SmppBindType, mbloxConnectionType: MbloxConnectionType) {
 
         this.mbloxConnectionType = mbloxConnectionType
 
-        smppChDto.smppBindType = smppBindType
+        smppDto.smppBindType = smppBindType
 
         if (this.mbloxConnectionType === MbloxConnectionType.Transceiver) {
 
-            smppChDto.smppUrl = "TransceiverUrl"
-            smppChDto.smppId = "TransceiverId"
-            smppChDto.smppPwd = "TransceiverPwd"
-            smppChDto.smppPort = 0
-            smppChDto.systemType = "TransceiverSystemType"
-            smppChDto.serviceType = "TransceiverServiceType"
+            smppDto.smppUrl = "TransceiverUrl"
+            smppDto.smppId = "TransceiverId"
+            smppDto.smppPwd = "TransceiverPwd"
+            smppDto.smppPort = 0
+            smppDto.systemType = "TransceiverSystemType"
+            smppDto.serviceType = "TransceiverServiceType"
             transceiverCount++
         } else {
 
-            smppChDto.smppUrl = "TransmitterUrl"
-            smppChDto.smppId = "TransmitterId"
-            smppChDto.smppPwd = "TransmitterPwd"
-            smppChDto.smppPort = 0
+            smppDto.smppUrl = "TransmitterUrl"
+            smppDto.smppId = "TransmitterId"
+            smppDto.smppPwd = "TransmitterPwd"
+            smppDto.smppPort = 0
             transmitterCount++
         }
     }

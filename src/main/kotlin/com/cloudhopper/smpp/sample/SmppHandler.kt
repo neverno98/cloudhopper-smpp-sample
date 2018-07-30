@@ -19,9 +19,9 @@ import java.nio.channels.ClosedChannelException
  */
 
 
-abstract class SmppChHandler(protected var smppGateway: ISmppChGateway) : DefaultSmppSessionHandler(), ISmppChHandler {
+abstract class SmppHandler(protected var smppGateway: ISmppGateway) : DefaultSmppSessionHandler(), ISmppHandler {
 
-    private val logger = LoggerFactory.getLogger("SmppChHandler")
+    private val logger = LoggerFactory.getLogger("SmppHandler")
 
     protected open val defaultEncoding: Charset = CharsetUtil.CHARSET_ISO_8859_1
 

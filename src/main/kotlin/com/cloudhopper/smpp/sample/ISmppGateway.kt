@@ -5,7 +5,7 @@ package com.cloudhopper.smpp.sample
  * @since 2018-07-24
  */
 
-interface ISmppChGateway {
+interface ISmppGateway {
 
     @Throws(Exception::class)
     fun enquireLink()

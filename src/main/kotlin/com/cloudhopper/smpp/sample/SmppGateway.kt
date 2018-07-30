@@ -23,14 +23,14 @@ import java.util.concurrent.atomic.AtomicInteger
  */
 
 
-abstract class SmppChGateway : ISmppChGateway {
+abstract class SmppGateway : ISmppGateway {
 
     protected val BIND_AYCN_TIMEOUT = 3 * 1000L
     protected val SMPP_LIMIT_BYTE = 160
 
-    private val logger = LoggerFactory.getLogger("SmppChGateway")
+    private val logger = LoggerFactory.getLogger("SmppGateway")
 
-    protected val smppChDto = SmppChDto()
+    protected val smppChDto = SmppDto()
     protected val scheduledExecutor: ScheduledExecutorService
     protected open var defaultEncoding: Charset = CharsetUtil.CHARSET_GSM
     protected open val isAsyncMode: Boolean = false
@@ -41,11 +41,11 @@ abstract class SmppChGateway : ISmppChGateway {
 
         var min = 60L * 1000L
         val timer = Timer()
-        val smppChJob = SmppChJob(this)
+        val smppChJob = SmpphJob(this)
         timer.scheduleAtFixedRate(smppChJob, min, min)
 
         smppChDto.timer = timer
-        smppChDto.smppChJob = smppChJob
+        smppChDto.smpphJob = smppChJob
     }
 
     protected open fun setSessionHandler() {

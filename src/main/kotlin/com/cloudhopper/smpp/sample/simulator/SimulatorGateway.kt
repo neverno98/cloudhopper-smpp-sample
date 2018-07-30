@@ -1,7 +1,7 @@
 package com.cloudhopper.smpp.sample.simulator
 
 import com.cloudhopper.smpp.SmppSessionConfiguration
-import com.cloudhopper.smpp.sample.SmppChGateway
+import com.cloudhopper.smpp.sample.SmppGateway
 import com.cloudhopper.smpp.sample.SmppRegisteredDeliveryCode
 import org.slf4j.LoggerFactory
 
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
  * @since 2018-07-27
  */
 
-class SimulatorGateway : SmppChGateway() {
+class SimulatorGateway : SmppGateway() {
 
     companion object {
 

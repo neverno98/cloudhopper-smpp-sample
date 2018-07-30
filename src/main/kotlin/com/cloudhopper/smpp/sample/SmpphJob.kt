@@ -8,9 +8,9 @@ import java.util.*
  * @since 2018-07-24
  */
 
-class SmppChJob(private val gateway: ISmppChGateway) : TimerTask() {
+class SmpphJob(private val gateway: ISmppGateway) : TimerTask() {
 
-    private val logger = LoggerFactory.getLogger("SmppChJob")
+    private val logger = LoggerFactory.getLogger("SmpphJob")
 
     override fun run() {
 

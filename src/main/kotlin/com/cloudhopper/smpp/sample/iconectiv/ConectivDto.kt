@@ -1,6 +1,6 @@
 package com.cloudhopper.smpp.sample.iconectiv
 
-import com.cloudhopper.smpp.sample.SmppChDto
+import com.cloudhopper.smpp.sample.SmppDto
 
 /**
  * @author DK
@@ -11,28 +11,28 @@ class ConectivDto {
 
     private var mode = 1
 
-    fun init(smppChDto: SmppChDto) {
+    fun init(smppDto: SmppDto) {
 
-        changeMode(smppChDto, System.currentTimeMillis().toInt() % 2)
-        smppChDto.smppPwd = "conectivPwd"
-        smppChDto.smppPort = 0
+        changeMode(smppDto, System.currentTimeMillis().toInt() % 2)
+        smppDto.smppPwd = "conectivPwd"
+        smppDto.smppPort = 0
     }
 
-    fun change(smppBind: SmppChDto) {
+    fun change(smppBind: SmppDto) {
 
         val localMode = if (mode == 1) 2 else 1
         changeMode(smppBind, localMode)
     }
 
-    private fun changeMode(smppChDto: SmppChDto, mode: Int) {
+    private fun changeMode(smppDto: SmppDto, mode: Int) {
 
         this.mode = mode
         if (mode == 1) {
-            smppChDto.smppUrl = "conectivUrl1"
-            smppChDto.smppId = "conectivId1"
+            smppDto.smppUrl = "conectivUrl1"
+            smppDto.smppId = "conectivId1"
         } else {
-            smppChDto.smppUrl = "conectivUrl2"
-            smppChDto.smppId = "conectivId2"
+            smppDto.smppUrl = "conectivUrl2"
+            smppDto.smppId = "conectivId2"
         }
     }
 

@@ -6,7 +6,7 @@ import com.cloudhopper.smpp.SmppBindType
 import com.cloudhopper.smpp.SmppConstants
 import com.cloudhopper.smpp.pdu.SubmitSm
 import com.cloudhopper.smpp.pdu.SubmitSmResp
-import com.cloudhopper.smpp.sample.SmppChGateway
+import com.cloudhopper.smpp.sample.SmppGateway
 import com.cloudhopper.smpp.sample.SmppStatus
 import com.cloudhopper.smpp.sample.SmsSendDto
 import com.cloudhopper.smpp.ssl.SslConfiguration
@@ -20,7 +20,7 @@ import java.math.BigInteger
  */
 
 
-class MbloxGateway(smppBindType: SmppBindType, mbloxConnectionType: MbloxConnectionType) : SmppChGateway() {
+class MbloxGateway(smppBindType: SmppBindType, mbloxConnectionType: MbloxConnectionType) : SmppGateway() {
 
     private val logger = LoggerFactory.getLogger("MbloxGateway")
 

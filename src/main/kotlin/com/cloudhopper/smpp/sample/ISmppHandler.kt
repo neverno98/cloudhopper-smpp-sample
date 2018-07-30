@@ -5,4 +5,4 @@ package com.cloudhopper.smpp.sample
  * @since 2018-07-24
  */
 
-interface ISmppChHandler
+interface ISmppHandler

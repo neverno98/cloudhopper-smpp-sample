@@ -1,7 +1,7 @@
 package com.cloudhopper.smpp.sample.syniverse
 
 import com.cloudhopper.smpp.SmppBindType
-import com.cloudhopper.smpp.sample.SmppChGateway
+import com.cloudhopper.smpp.sample.SmppGateway
 import org.slf4j.LoggerFactory
 
 /**
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory
  * @since 2018-07-27
  */
 
-class SyniverseGateway : SmppChGateway {
+class SyniverseGateway : SmppGateway {
 
     private val logger = LoggerFactory.getLogger("SyniverseGateway")
 
