@@ -33,7 +33,7 @@ abstract class SmppChGateway : ISmppChGateway {
     protected val smppChDto = SmppChDto()
     protected val scheduledExecutor: ScheduledExecutorService
     protected open var defaultEncoding: Charset = CharsetUtil.CHARSET_GSM
-    protected val isAsyncMode: Boolean = false
+    protected open val isAsyncMode: Boolean = false
 
     init {
 

@@ -23,7 +23,7 @@ abstract class SmppChHandler(protected var smppGateway: ISmppChGateway) : Defaul
 
     private val logger = LoggerFactory.getLogger("SmppChHandler")
 
-    protected val defaultEncoding: Charset = CharsetUtil.CHARSET_ISO_8859_1
+    protected open val defaultEncoding: Charset = CharsetUtil.CHARSET_ISO_8859_1
 
     protected open fun fireDeliverSmReceived(deliverSm: DeliverSm) {
 
